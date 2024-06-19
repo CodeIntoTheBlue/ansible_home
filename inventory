@@ -1,2 +1,11 @@
 [windows]
-192.168.178.68
+192.168.178.68 
+
+
+[all:vars]
+ansible_user=win10admin1 
+ansible_ssh_private_key_file=/home/linuxwsl2/.ssh/ansible 
+ansible_connection=ssh 
+ansible_shell_type=powershell 
+ansible_shell_executable=None
+
