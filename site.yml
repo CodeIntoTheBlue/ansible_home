@@ -1,18 +1,18 @@
 - hosts: all
   become: true
   pre_tasks:
-    - name: install updates (CentOS)
+    - name: update repo cache (CentOS)
       tags: always
       dnf:
         update_cache: yes
-      changed_when: false  
+      changed_when: false
       when: ansible_distribution == "CentOS"
 
-    - name: install updates (Ubuntu)
+    - name: update repo cache (Ubuntu)
       tags: always
       apt:
         update_cache: yes
-      changed_when: false    
+      changed_when: false
       when: ansible_distribution == "Ubuntu"
 
 - hosts: web_servers
@@ -36,6 +36,15 @@
         state: latest
         update_cache: yes
       when: ansible_distribution == "CentOS"
+
+- hosts: all
+  become: true
+  tasks:
+    - name: add ssh-key for simone
+      tags: always
+      authorized_key:
+        user: simone
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3inf5BR5TmRphZZMvwuT8J4VpRYSQZUExa0grred51 ansible"
 
     - name: start httpd (CentOS)
       tags: apache, centos, httpd
