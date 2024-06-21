@@ -7,7 +7,7 @@
   tags: ssh
   template:
     src: "{{ ssh_template_file}}"
-    dest: /ect/ssh/ssh_config
+    dest: /etc/ssh/ssh_config
     owner: root
     group: root
     mode: 0644
