@@ -3,10 +3,10 @@
      user: simone
      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3inf5BR5TmRphZZMvwuT8J4VpRYSQZUExa0grred51 ansible"
 
-- name: generate sshd_config file from ssh_template_file
+- name: generate sshd_config file from template
   tags: ssh
   template:
-    src: "{{ ssh_template_file}}"
+    src: "{{ ssh_template_file }}"
     dest: /etc/ssh/sshd_config
     owner: root
     group: root
