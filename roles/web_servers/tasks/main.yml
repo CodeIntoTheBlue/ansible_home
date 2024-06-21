@@ -1,6 +1,6 @@
-- name: install apache2 and php package for centOS
+- name: install apache2 and php packages
   tags: apache, httpd, php
-  dnf:
+  package:
     name:
       - "{{apache_package_name}}"
       - "{{php_package_name}}"
