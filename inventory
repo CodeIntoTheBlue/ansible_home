@@ -1,7 +1,9 @@
-[servers]
+[web_servers]
 192.168.178.71
+
+[db_servers]
 192.168.178.72
 
-[windows]
+[file_servers]
 192.168.178.74
 192.168.178.75
