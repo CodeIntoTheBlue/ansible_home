@@ -2,7 +2,7 @@
 
 # Set the username and the path to the SSH key on the local machine
 username=janina
-ssh_key_path=~/.ssh/ansible
+ssh_key_path=~/.ssh/ansible.pub
 
 # Set the list of remote Linux servers
 servers=(
@@ -29,7 +29,7 @@ done
 
 # Set the username and the path to the SSH key on the local machine
 username=ansible
-ssh_key_path=~/.ssh/ansible
+ssh_key_path=~/.ssh/ansible.pub
 
 servers=(
     192.168.178.74
