@@ -1,5 +1,5 @@
 - name: Test Windows task
-  hosts: windows_servers
+  hosts: windows_slaves
   tasks:
     - name: Create a test file
       win_file:
