@@ -1,17 +1,21 @@
-- name: Test Windows task
+---
+- name: Test playbook for Windows clients
   hosts: windows_slaves
-  become: yes
-  become_method: runas
+  gather_facts: no
   tasks:
-    - name: Create a test file
+    - name: Ping Windows clients
+      win_ping:
+
+    - name: Create a directory on Windows
       win_file:
-        path: C:\temp\test_file.txt
-        state: touch
+        path: C:\test_directory
+        state: directory
 
-    - name: Get system information
-      win_command: systeminfo
-      register: system_info
+    - name: Copy a file to Windows
+      win_copy:
+        src: /path/to/local/file.txt
+        dest: C:\test_directory\file.txt
 
-    - name: Display system information
-      debug:
-        var: system_info.stdout_lines
+    - name: Run a command on Windows
+      win_command: |
+        echo "Hello, World!" > C:\test_directory\hello.txt
