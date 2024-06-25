@@ -16,9 +16,9 @@
 
 [linux_slaves:vars]
 ansible_user=janina
-#ansible_become=yes
-#ansible_become_method=sudo
-#ansible_become_pass=passwort
+ansible_become=yes
+ansible_become_method=sudo
+ansible_become_pass=passwort
 
 [windows_slaves:vars]
 ansible_connection=winrm
