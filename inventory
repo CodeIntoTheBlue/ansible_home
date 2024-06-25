@@ -21,3 +21,7 @@ ansible_become_method=runas
 ansible_winrm_server_cert_validation=ignore
 ansible_user=ansible
 ansible_password=StrongPassword123!
+
+
+[all:vars]
+ssh_public_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJSdOHpfWHU3KqKT8JdgVtRksz+z1Kb6n6ZLHnTRlBiV Ansible"
