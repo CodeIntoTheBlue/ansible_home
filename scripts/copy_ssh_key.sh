@@ -20,10 +20,12 @@ done
 
 
 
+#################################### Windows 
+
 # Set the username and the path to the SSH key on the local machine
 username=ansible
 ssh_key_path=~/.ssh/ansible
-#################################### Windows 
+
 servers=(
     192.168.178.74
     192.168.178.75

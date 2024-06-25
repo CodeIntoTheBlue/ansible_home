@@ -1,5 +1,7 @@
 - name: Test Windows task
   hosts: windows_slaves
+  become: yes
+  become_method: runas
   tasks:
     - name: Create a test file
       win_file:
