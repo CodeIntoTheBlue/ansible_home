@@ -16,7 +16,8 @@ do
     echo "Copying SSH key to linux $server..."
     ssh-copy-id -i $ssh_key_path $username@$server
     # adding them to the known_hosts
-    ssh-keyscan -H $servers >> ~/.ssh/known_hosts
+    echo "Copying SSH key to known_hosts $server..."
+    ssh-keyscan -H $server >> ~/.ssh/known_hosts
 
 
 done
@@ -45,7 +46,8 @@ do
     echo "Copying SSH key to windows $server..."
     scp $ssh_key_path $username@$server:C:/Users/$username/.ssh/authorized_keys
     # adding them to the known_hosts
-    ssh-keyscan -H $servers >> ~/.ssh/known_hosts
+    echo "Copying SSH key to known_hosts $server..."
+    ssh-keyscan -H $server >> ~/.ssh/known_hosts
 done
 
 
