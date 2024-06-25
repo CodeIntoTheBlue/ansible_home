@@ -14,6 +14,9 @@
 192.168.178.81
 
 
+[linux_slaves:vars]
+ansible_user=janina
+
 [windows_slaves:vars]
 ansible_connection=winrm
 ansible_winrm_transport=ntlm
