@@ -2,11 +2,11 @@
 - hosts: linux_slaves
   become: true
   tasks:
-
-      - name: install apache and php
-        package:
-              name:
-                 - "{{ apache_package }}"
-                 - "{{ php_package }}"
-              state: latest
-              update_cache: yes
+    - name: install apache2 and php packages on Ubuntu
+      tags: apache, apache2, php, ubuntu
+      apt:
+        name:
+          - apache2
+          - libapache2-mod-php
+        state: latest
+      when: ansible_distribution == "Ubuntu"
