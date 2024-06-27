@@ -2,11 +2,16 @@
 - name: Test playbook for Windows clients
   hosts: windows_slaves
   gather_facts: no
+
+  vars:
+    ansible_become_method: runas
+    ansible_become_user: Administrator
+
+
   tasks:
     - name: Ping Windows clients
       win_ping:
-
-
+      
     - name: Create a directory on Windows
       win_file:
         path: C:\test_directory
