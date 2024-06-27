@@ -55,7 +55,6 @@
 
 
 
-
 - hosts: windows_slaves
   ignore_unreachable: yes
   gather_facts: no
@@ -73,35 +72,36 @@
         path: "{{ userprofile_env.stdout.strip() }}\\.ssh"
         state: directory
 
-    - name: Debug directory creation
-      debug:
-        msg: "Directory created at {{ userprofile_env.stdout.strip() }}\\.ssh"
-
     - name: Create the authorized key file
       win_file:
         path: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
         state: touch
 
-    - name: Debug key file creation
-      debug:
-        msg: "Authorized key file created at {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
-
     - name: Ensure the ansible.pub file exists on the control node
       stat:
         path: /home/janina/.ssh/ansible.pub
+      delegate_to: localhost
       register: ansible_pub_file
 
     - name: Debug ansible.pub file existence
       debug:
         var: ansible_pub_file
+      delegate_to: localhost
 
-    - name: Copy a file to Windows
-      win_copy:
-        src: /home/janina/.ssh/ansible.pub
-        dest: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
+    - name: Read content of ansible.pub
+      command: cat /home/janina/.ssh/ansible.pub
+      delegate_to: localhost
+      register: ansible_pub_content
+      when: ansible_pub_file.stat.exists
+
+    - name: Copy public key content to Windows
+      win_lineinfile:
+        path: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
+        line: "{{ ansible_pub_content.stdout }}"
+        create: yes
       when: ansible_pub_file.stat.exists
 
     - name: Debug file copy
       debug:
-        msg: "File copied to {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
+        msg: "Public key content copied to {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
       when: ansible_pub_file.stat.exists
