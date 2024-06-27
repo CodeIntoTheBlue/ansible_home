@@ -11,8 +11,9 @@
 
     - name: Copy installation files to Windows
       win_copy:
-        src: "{{ item.path }}"
-        dest: "C:\\temp\\{{ item.path | basename }}"
+       src: "{{ item.path }}"
+       dest: "C:\\temp\\{{ item.path | basename }}"
+      force: yes
       loop: "{{ installation_files.files }}"
 
     - name: Install applications
