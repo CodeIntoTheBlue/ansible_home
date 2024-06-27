@@ -1,0 +1,22 @@
+---
+- name: Install applications from directory
+  hosts: windows_slaves
+  tasks:
+    - name: Get list of installation files
+      find:
+        paths: "{{ playbook_dir }}/files/windows_apps"
+        patterns: "*.exe"
+      register: installation_files
+      delegate_to: localhost
+
+    - name: Copy installation files to Windows
+      win_copy:
+        src: "{{ item.path }}"
+        dest: "C:\\temp\\{{ item.path | basename }}"
+      loop: "{{ installation_files.files }}"
+
+    - name: Install applications
+      win_package:
+        path: "C:\\temp\\{{ item.path | basename }}"
+        state: present
+      loop: "{{ installation_files.files }}"
