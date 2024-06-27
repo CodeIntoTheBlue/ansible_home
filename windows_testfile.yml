@@ -4,8 +4,6 @@
   gather_facts: no
 
   vars:
-    ansible_become_method: runas
-    ansible_become_user: Administrator
     ansible_connection: winrm
     ansible_winrm_server_cert_validation: ignore
 
