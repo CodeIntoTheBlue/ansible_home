@@ -24,13 +24,12 @@ ansible_port=5986
 ansible_connection=winrm
 ansible_winrm_server_cert_validation=ignore
 ansible_become_method=runas
-ansible_become_user=janina
-ansible_user=janina
+ansible_become_user=simone
 ansible_password=passwort
 ansible_shell_type=powershell
 
 
 [all:vars]
 ssh_public_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4uZMBl5Kw9+tH5UZmv6ByQgycS0dfDnb1psDDttJQp ansible"
-ansible_user=janina
+ansible_user=simone
 ansible_password=passwort
