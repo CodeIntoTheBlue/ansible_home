@@ -16,6 +16,11 @@
         path: "C:\\{{ user_profile }}\\.ssh"
         state: directory
 
+    - name: Create the authorized key file
+      win_file:
+        path: "C:\\{{ user_profile }}\\.ssh\\authorized_keys"
+        state: touch
+
     - name: Copy a file to Windows
       win_copy:
         src: ~/.ssh/ansible.pub
