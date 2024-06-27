@@ -16,8 +16,10 @@
 - hosts: windows_slaves
   gather_facts: no
   tasks:
-    - win_chocolatey:
+    - name: install adobe chrome and firefox on windows
+      win_chocolatey: 
         name: 
-          - apache
-          - libreoffice
+          - adobereader
+          - googlechrome
+          - firefox
         state: present
