@@ -6,6 +6,7 @@
     - name: Ping Windows clients
       win_ping:
 
+
     - name: Create a directory on Windows
       win_file:
         path: C:\test_directory
@@ -19,3 +20,6 @@
     - name: Run a command on Windows
       win_command: |
         echo "Hello, World!" > C:\test_directory\hello.txt
+
+    - name: Windows task
+      win_command: whoami
