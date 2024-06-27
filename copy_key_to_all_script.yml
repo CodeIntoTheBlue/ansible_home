@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   connection: local
+  ignore_unreachable: yes
   vars:
     username: janina
     ssh_key_path: "/home/janina/.ssh/ansible.pub"
@@ -54,6 +55,7 @@
 
 
 - hosts: windows_slaves
+  ignore_unreachable: yes
   gather_facts: no
   tasks:
 
