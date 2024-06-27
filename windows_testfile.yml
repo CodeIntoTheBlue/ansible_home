@@ -7,24 +7,20 @@
     - name: Ping Windows clients
       win_ping:
 
-    - name: Define user profile variable
-      set_fact:
-        user_profile: "{{ lookup('env', 'USERPROFILE') }}"
-
     - name: Create a directory on Windows
       win_file:
-        path: "C:\\{{ user_profile }}\\.ssh"
+        path: "C:\\%USERPROFILE%\\.ssh"
         state: directory
 
     - name: Create the authorized key file
       win_file:
-        path: "C:\\{{ user_profile }}\\.ssh\\authorized_keys"
+        path: "C:\\%USERPROFILE%\\.ssh\\authorized_keys"
         state: touch
 
     - name: Copy a file to Windows
       win_copy:
         src: ~/.ssh/ansible.pub
-        dest: "C:\\{{ user_profile }}\\.ssh\\authorized_keys"
+        dest: "C:\\%USERPROFILE%\\.ssh\\authorized_keys"
 
 
 
