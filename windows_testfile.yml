@@ -2,29 +2,28 @@
 - name: Copy Ansible SSH-Key to windows
   hosts: windows_slaves
   gather_facts: no
-
   tasks:
-    - name: Ping Windows clients
-      win_ping:
+  
+    - name: Get USERPROFILE environment variable
+      win_environment:
+        state: present
+        name: USERPROFILE
+      register: userprofile_env
 
     - name: Create a directory on Windows
       win_file:
-        path: "C:\\%USERPROFILE%\\.ssh"
+        path: "{{ userprofile_env.value }}\\.ssh"
         state: directory
 
     - name: Create the authorized key file
       win_file:
-        path: "C:\\%USERPROFILE%\\.ssh\\authorized_keys"
+        path: "{{ userprofile_env.value }}\\.ssh\\authorized_keys"
         state: touch
 
     - name: Copy a file to Windows
       win_copy:
         src: ~/.ssh/ansible.pub
-        dest: "C:\\%USERPROFILE%\\.ssh\\authorized_keys"
-
-
-
-
+        dest: "{{ userprofile_env.value }}\\.ssh\\authorized_keys"
 
 
 
