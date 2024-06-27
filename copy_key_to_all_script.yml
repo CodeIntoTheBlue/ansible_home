@@ -3,7 +3,9 @@
   hosts: linux_slaves
   gather_facts: yes
   vars:
-    ansible_ssh_key_path: /home/janina/.ssh/ansible.pub
+    username: janina
+    ssh_key_path: "/home/janina/.ssh/ansible.pub"
+    
   tasks:
     - name: Get home directory
       set_fact:
