@@ -59,22 +59,7 @@
 - hosts: windows_slaves
   ignore_unreachable: yes
   gather_facts: no
-  vars:
-    username: janina
-    ssh_key_path: "/home/janina/.ssh/ansible.pub"
   tasks:
-
-
-
-    - name: Read SSH key using sudo
-      command: sudo -u janina cat {{ ssh_key_path }}
-      register: ssh_key_content
-
-    - name: Set SSH key fact
-      set_fact:
-        ssh_key: "{{ ssh_key_content.stdout }}"
-
-
 
     - name: Get USERPROFILE environment variable
       win_shell: echo $env:USERPROFILE
