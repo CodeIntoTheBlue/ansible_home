@@ -8,8 +8,14 @@
 
   tasks:
     - name: Read SSH key using sudo
-      command: sudo -u janina cat {{ ssh_key_path }}
+      command: cat /home/janina/.ssh/ansible.pub
+      become: yes
+      become_user: janina
       register: ssh_key_content
+
+    - debug:
+        msg: "{{ ssh_key_content.stdout }}"
+        
 
     - name: Set SSH key fact
       set_fact:
