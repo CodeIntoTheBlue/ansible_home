@@ -1,6 +1,7 @@
 ---
 - name: Execute Inline Bash Script
-  hosts: master
+  hosts: 127.0.0.1
+  connection: local
   tasks:
      - name: Run bash script
        shell: |
