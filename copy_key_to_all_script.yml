@@ -34,18 +34,6 @@
       delegate_to: "{{ item }}"
 
 
-
-    - name: Copy SSH key to windows slaves
-      ignore_unreachable: yes
-      authorized_key:
-        user: "{{ username }}"
-        state: present
-        key: "{{ ssh_key }}"
-      loop: "{{ windows_slaves }}"
-      delegate_to: "{{ item }}"
-
-
-
     - name: Add Linux slaves to known_hosts
       known_hosts:
         name: "{{ item }}"
