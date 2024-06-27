@@ -3,11 +3,12 @@
   hosts: windows_slaves
   gather_facts: no
   tasks:
-  
+
     - name: Get USERPROFILE environment variable
       win_environment:
         state: present
         name: USERPROFILE
+        level: user
       register: userprofile_env
 
     - name: Create a directory on Windows
@@ -24,6 +25,3 @@
       win_copy:
         src: ~/.ssh/ansible.pub
         dest: "{{ userprofile_env.value }}\\.ssh\\authorized_keys"
-
-
-
