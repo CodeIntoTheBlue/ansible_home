@@ -11,3 +11,13 @@
           - libapache2-mod-php
         state: latest
       when: ansible_distribution == "Ubuntu"
+
+
+- hosts: windows_slaves
+  gather_facts: no
+  tasks:
+    - win_chocolatey:
+        name: 
+          - apache
+          - libreoffice
+        state: present
