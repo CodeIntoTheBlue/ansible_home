@@ -1,11 +1,10 @@
 ---
-- name: Distribute SSH keys to Linux and Windows servers
+- name: Distribute SSH keys to Linux and Windows slaves
   hosts: localhost
   connection: local
   vars:
     username: janina
     ssh_key_path: "/home/janina/.ssh/ansible.pub"
-
     linux_slaves:
       - 192.168.178.71
       - 192.168.178.72
@@ -17,108 +16,43 @@
       - 192.168.178.81
 
   tasks:
-
-
-
-    - name: Ensure root can read the SSH key file
-      file:
-        path: /home/janina/.ssh/ansible.pub
-        mode: '0644'
-      become: yes
-      become_user: janina
-
-
-
-    - name: Check file permissions
-      stat:
-        path: /home/janina/.ssh/ansible.pub
-      register: file_info
-
-    - debug:
-        var: file_info
-
-
-    - name: Get absolute path
-      command: readlink -f /home/janina/.ssh/ansible.pub
-      register: absolute_path
-
-    - debug:
-        var: absolute_path.stdout
-
-
-    - name: Check SELinux context
-      command: ls -Z /home/janina/.ssh/ansible.pub
-      register: selinux_context
-
-    - debug:
-        var: selinux_context.stdout
-
-
-
-    - name: Check current user
-      command: whoami
-      register: current_user
-
-    - debug:
-        var: current_user.stdout    
-
-
-
-    - name: Read SSH key content
-      slurp:
-        src: /home/janina/.ssh/ansible.pub
-      become: yes
-      become_user: janina
+    - name: Read SSH key using sudo
+      command: sudo -u janina cat {{ ssh_key_path }}
       register: ssh_key_content
 
     - name: Set SSH key fact
       set_fact:
-        ssh_key: "{{ ssh_key_content['content'] | b64decode }}"   
-        
+        ssh_key: "{{ ssh_key_content.stdout }}"
 
-
-
-
-
-    - name: Ensure SSH key file exists
-      stat:
-        path: "{{ ssh_key_path }}"
-      register: ssh_key_file
-
-    - name: Fail if SSH key file does not exist
-      fail:
-        msg: "SSH key file not found: {{ ssh_key_path }}"
-      when: not ssh_key_file.stat.exists
-
-    - name: Copy SSH key to Linux servers
-      ansible.posix.authorized_key:
+    - name: Copy SSH key to Linux slaves
+      authorized_key:
         user: "{{ username }}"
         state: present
-        key: "{{ lookup('file', ssh_key_path) }}"
+        key: "{{ ssh_key }}"
       loop: "{{ linux_slaves }}"
       delegate_to: "{{ item }}"
 
-    - name: Add Linux servers to known_hosts
+    - name: Add Linux slaves to known_hosts
       known_hosts:
         name: "{{ item }}"
         state: present
       loop: "{{ linux_slaves }}"
 
-    - name: Ensure .ssh directory exists on Windows servers
+    - name: Ensure .ssh directory exists on Windows slaves
       win_file:
         path: "C:\\Users\\{{ username }}\\.ssh"
         state: directory
       loop: "{{ windows_slaves }}"
       delegate_to: "{{ item }}"
 
-    - name: Copy SSH key to Windows servers
+    - name: Copy SSH key to Windows slaves
       win_copy:
-        src: "{{ ssh_key_path }}"
+        content: "{{ ssh_key }}"
         dest: "C:\\Users\\{{ username }}\\.ssh\\authorized_keys"
       loop: "{{ windows_slaves }}"
       delegate_to: "{{ item }}"
 
-    - name: Add Windows servers to known_hosts
+    - name: Add Windows slaves to known_hosts
       known_hosts:
         name: "{{ item }}"
         state: present
