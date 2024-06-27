@@ -37,8 +37,18 @@
     - name: Add Linux slaves to known_hosts
       known_hosts:
         name: "{{ item }}"
+        key: "{{ ssh_key }}"
         state: present
       loop: "{{ linux_slaves }}"
+
+
+    - name: Add Windows slaves to known_hosts
+      known_hosts:
+        name: "{{ item }}"
+        key: "{{ ssh_key }}"
+        state: present
+      loop: "{{ windows_slaves }}"
+
 # Windows
 
 
@@ -82,10 +92,3 @@
       debug:
         msg: "File copied to {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
 
-
-
-    - name: Add Windows slaves to known_hosts
-      known_hosts:
-        name: "{{ item }}"
-        state: present
-      loop: "{{ windows_slaves }}"
