@@ -53,14 +53,13 @@
       loop: "{{ windows_slaves }}"
       ignore_errors: yes
 
-# Windows
+
 
 
 - hosts: windows_slaves
   ignore_unreachable: yes
   gather_facts: no
   tasks:
-
     - name: Get USERPROFILE environment variable
       win_shell: echo $env:USERPROFILE
       register: userprofile_env
@@ -87,12 +86,22 @@
       debug:
         msg: "Authorized key file created at {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
 
+    - name: Ensure the ansible.pub file exists on the control node
+      stat:
+        path: /home/janina/.ssh/ansible.pub
+      register: ansible_pub_file
+
+    - name: Debug ansible.pub file existence
+      debug:
+        var: ansible_pub_file
+
     - name: Copy a file to Windows
       win_copy:
-        src: home/janina/.ssh/ansible.pub
+        src: /home/janina/.ssh/ansible.pub
         dest: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
+      when: ansible_pub_file.stat.exists
 
     - name: Debug file copy
       debug:
         msg: "File copied to {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
-
+      when: ansible_pub_file.stat.exists
