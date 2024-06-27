@@ -8,33 +8,17 @@
       win_shell: echo $env:USERPROFILE
       register: userprofile_env
 
-    - name: Debug userprofile_env
-      debug:
-        var: userprofile_env
-
     - name: Create a directory on Windows
       win_file:
         path: "{{ userprofile_env.stdout.strip() }}\\.ssh"
         state: directory
-
-    - name: Debug directory creation
-      debug:
-        msg: "Directory created at {{ userprofile_env.stdout.strip() }}\\.ssh"
 
     - name: Create the authorized key file
       win_file:
         path: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
         state: touch
 
-    - name: Debug key file creation
-      debug:
-        msg: "Authorized key file created at {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
-
     - name: Copy a file to Windows
       win_copy:
         src: ~/.ssh/ansible.pub
         dest: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
-
-    - name: Debug file copy
-      debug:
-        msg: "File copied to {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
