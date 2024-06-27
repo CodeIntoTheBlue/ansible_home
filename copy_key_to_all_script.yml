@@ -42,10 +42,10 @@
 
 # Windows
 
-    - name: Copy Ansible SSH-Key to windows
-      hosts: windows_slaves
-      gather_facts: no
-      tasks:
+- name: Copy Ansible SSH-Key to windows
+  hosts: windows_slaves
+  gather_facts: no
+  tasks:
 
     - name: Get USERPROFILE environment variable
       win_shell: echo $env:USERPROFILE
