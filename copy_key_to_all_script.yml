@@ -4,7 +4,8 @@
   connection: local
   become_user: janina
   become_method: sudo
-  become_pass: passwort
+
+
   tasks:
 
      - name: Run bash script
