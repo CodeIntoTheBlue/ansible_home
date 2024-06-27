@@ -97,35 +97,31 @@
   connection: local
   gather_facts: no
   vars:
-    linux_slaves:
+    all_slaves:
       - 192.168.178.71
       - 192.168.178.72
-    windows_slaves:
       - 192.168.178.74
       - 192.168.178.75
       - 192.168.178.79
       - 192.168.178.80
       - 192.168.178.81
-    all_slaves: "{{ linux_slaves + windows_slaves }}"
+    known_hosts_file: "/home/janina/.ssh/known_hosts"
 
   tasks:
-    - name: Scan SSH keys for all slaves
-      command: ssh-keyscan -H -t ed25519 {{ item }}
-      register: ssh_keys
-      loop: "{{ all_slaves }}"
-      ignore_errors: yes
+    - name: Ensure known_hosts file exists
+      file:
+        path: "{{ known_hosts_file }}"
+        state: touch
+        mode: '0600'
 
-    - name: Add all slaves to known_hosts
-      known_hosts:
-        name: "{{ item.item }}"
-        key: "{{ item.stdout }}"
+    - name: Add IP addresses to known_hosts
+      lineinfile:
+        path: "{{ known_hosts_file }}"
+        line: "{{ item }}"
         state: present
-      loop: "{{ ssh_keys.results }}"
-      when: item.rc == 0
-      ignore_errors: yes
+      loop: "{{ all_slaves }}"
 
-    - name: Debug known_hosts additions
+    - name: Debug added IP addresses
       debug:
-        msg: "Added {{ item.item }} to known_hosts"
-      loop: "{{ ssh_keys.results }}"
-      when: item.rc == 0
+        msg: "Added {{ item }} to known_hosts"
+      loop: "{{ all_slaves }}"

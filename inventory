@@ -1,5 +1,6 @@
 [master]
 192.168.178.78
+localhost
 
 [linux_slaves]
 192.168.178.71
