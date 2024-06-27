@@ -27,6 +27,7 @@ ansible_become_method=runas
 ansible_become_user=janina
 ansible_user=janina
 ansible_password=passwort
+ansible_shell_type=powershell
 
 
 [all:vars]

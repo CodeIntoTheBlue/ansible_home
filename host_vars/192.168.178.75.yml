@@ -1,9 +1,0 @@
-ansible_shell_type: powershell
-ansible_user: janina
-ansible_port: 22
-ansible_connection: ssh
-ansible_shell_executable: /bin/bash
-ssh_users: "janina simone"
-ssh_template_file: sshd_config_windows.j2
-
-#ansible_password: your_windows_password
