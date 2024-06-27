@@ -1,21 +1,23 @@
 ---
-- name: Copy Ansible SSH-Key to Linux
-  hosts: linux_slaves
-  gather_facts: yes
+- hosts: localhost
+  connection: local
   vars:
     username: janina
     ssh_key_path: "/home/janina/.ssh/ansible.pub"
+    linux_slaves:
+      - 192.168.178.71
+      - 192.168.178.72
+    windows_slaves:
+      - 192.168.178.74
+      - 192.168.178.75
+      - 192.168.178.79
+      - 192.168.178.80
+      - 192.168.178.81
 
   tasks:
     - name: Read SSH key using sudo
-      command: cat /home/janina/.ssh/ansible.pub
-      become: yes
-      become_user: root
+      command: sudo -u janina cat {{ ssh_key_path }}
       register: ssh_key_content
-
-    - debug:
-        msg: "{{ ssh_key_content.stdout }}"
-
 
     - name: Set SSH key fact
       set_fact:
@@ -29,6 +31,8 @@
       loop: "{{ linux_slaves }}"
       delegate_to: "{{ item }}"
 
+
+
     - name: Add Linux slaves to known_hosts
       known_hosts:
         name: "{{ item }}"
@@ -39,8 +43,8 @@
 
 # Windows
 
-- name: Copy Ansible SSH-Key to windows
-  hosts: windows_slaves
+
+- hosts: windows_slaves
   gather_facts: no
   tasks:
 
