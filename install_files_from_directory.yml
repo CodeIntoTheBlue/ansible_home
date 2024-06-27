@@ -9,12 +9,28 @@
       register: installation_files
       delegate_to: localhost
 
+
+
+    - name: Check if temp directory exists
+      win_stat:
+        path: C:\temp
+      register: temp_dir_stat
+
+    - name: Create temp directory if it doesn't exist
+      win_file:
+        path: C:\temp
+        state: directory
+      when: not temp_dir_stat.stat.exists
+
     - name: Copy installation files to Windows
       win_copy:
         src: "{{ item.path }}"
         dest: "C:\\temp\\{{ item.path | basename }}"
         force: yes
       loop: "{{ installation_files.files }}"
+
+
+
 
     - name: Install applications
       win_package:
