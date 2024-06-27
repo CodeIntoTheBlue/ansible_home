@@ -38,7 +38,6 @@ ssh-keygen -t ed25519 -C "ansible" -f ~/.ssh/ansible
 
 
 
-
 # Clone the Git repository with Ansible playbooks
 git clone https://github.com/CodeIntoTheBlue/ansible_home.git
 

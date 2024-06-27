@@ -59,6 +59,9 @@ sudo chown semaphore:semaphore config.json
 # directory erstellen
 sudo mkdir /etc/semaphore/.ssh
 
+# copy ansible pub key to the directory
+sudo cp ~/.ssh/ansible.pub /home/semaphore/.ssh/ansible.pub
+
 # change ownership
 sudo chown semaphore:semaphore /etc/semaphore
 
