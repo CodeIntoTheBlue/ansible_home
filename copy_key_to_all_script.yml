@@ -104,7 +104,7 @@
 
     - name: Copy a file to Windows
       win_copy:
-        src: "{{ ssh_key_content.stdout }}"
+        src: home/janina/.ssh/ansible.pub
         dest: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
 
     - name: Debug file copy
