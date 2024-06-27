@@ -1,5 +1,5 @@
 ---
-- name: Test playbook for Windows clients
+- name: Copy Ansible SSH-Key to windows
   hosts: windows_slaves
   gather_facts: no
 
@@ -7,24 +7,19 @@
     ansible_become_method: runas
     ansible_become_user: Administrator
 
-
   tasks:
     - name: Ping Windows clients
       win_ping:
-      
+
     - name: Create a directory on Windows
       win_file:
-        path: C:\test_directory
+        path: C:\$env:USERPROFILE\.ssh
         state: directory
 
     - name: Copy a file to Windows
       win_copy:
-        src: /path/to/local/file.txt
-        dest: C:\test_directory\file.txt
+        src: ~/.ssh/ansible.pub
+        dest: C:\$env:USERPROFILE\.ssh\authorized_keys
 
-    - name: Run a command on Windows
-      win_command: |
-        echo "Hello, World!" > C:\test_directory\hello.txt
 
-    - name: Windows task
-      win_command: whoami
+
