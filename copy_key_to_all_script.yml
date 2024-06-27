@@ -2,7 +2,8 @@
 - name: Execute Inline Bash Script
   hosts: 127.0.0.1
   connection: local
-  become_user: simone
+  become_user: janina
+  become_password: passwort
   tasks:
      - name: Run bash script
        shell: |
