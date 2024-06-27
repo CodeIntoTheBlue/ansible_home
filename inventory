@@ -8,7 +8,6 @@
 [windows_slaves]
 192.168.178.74
 #192.168.178.75
-
 #192.168.178.79
 192.168.178.80
 #192.168.178.81
@@ -24,7 +23,7 @@ ansible_connection=ssh
 
 
 [windows_slaves:vars]
-ansible_user=simone
+ansible_user=janina
 ansible_password=passwort
 ansible_port=5986
 ansible_connection=winrm
