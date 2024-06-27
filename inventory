@@ -25,7 +25,7 @@ ansible_password=passwort
 ansible_become_method=runas
 ansible_port=5986
 ansible_connection=winrm
-anssible_winrm_server_cert_validation=ignore
+ansible_winrm_server_cert_validation=ignore
 
 
 
