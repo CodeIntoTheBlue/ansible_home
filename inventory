@@ -10,8 +10,8 @@
 #192.168.178.75
 
 #192.168.178.79
-#192.168.178.80
-192.168.178.81
+192.168.178.80
+#192.168.178.81
 
 
 [linux_slaves:vars]
@@ -24,19 +24,12 @@ ansible_connection=ssh
 
 
 [windows_slaves:vars]
+ansible_user=simone
+ansible_password=passwort
+ansible_port=5986
 ansible_connection=winrm
-ansible_winrm_transport=ntlm
-ansible_become_method=runas
-ansible_become_user=ansible
-ansible_become_pass=StrongPassword123!
-ansible_winrm_server_cert_validation=ignore
-ansible_user=ansible
-ansible_password=StrongPassword123!
-ansible_winrm_transport=basic
-ansible_winrm_scheme=http
-ansible_port=5985
-
+anssible_winrm_server_cert_validation=ignore
 
 
 [all:vars]
-ssh_public_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJSdOHpfWHU3KqKT8JdgVtRksz+z1Kb6n6ZLHnTRlBiV Ansible"
+ssh_public_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4uZMBl5Kw9+tH5UZmv6ByQgycS0dfDnb1psDDttJQp ansible"

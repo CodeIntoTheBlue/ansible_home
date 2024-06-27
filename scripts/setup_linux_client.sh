@@ -16,18 +16,18 @@ sudo apt install -y openssh-server jq
 sudo sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
-# Create Ansible user
-sudo adduser --system --group ansible
-sudo usermod -aG sudo ansible
+# Create Ansible user Simone
+sudo adduser --system --group simone
+sudo usermod -aG sudo simone
 
-# Set up sudo rights for Ansible user
-echo "ansible ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ansible
-sudo chmod 440 /etc/sudoers.d/ansible
+# Set up sudo rights for Ansible user simone
+echo "simone ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/simone
+sudo chmod 440 /etc/sudoers.d/simone
 
-# Create .ssh directory for ansible user
-sudo mkdir -p /home/ansible/.ssh
-sudo chown ansible:ansible /home/ansible/.ssh
-sudo chmod 700 /home/ansible/.ssh
+# Create .ssh directory for ansible user simone
+sudo mkdir -p /home/simone/.ssh
+sudo chown simone:simone /home/simone/.ssh
+sudo chmod 700 /home/simone/.ssh
 
 echo "Linux client/server has been set up for Ansible management."
 echo "The Ansible SSH key will be deployed from the master server."
