@@ -5,23 +5,20 @@
   tasks:
 
     - name: Get USERPROFILE environment variable
-      win_environment:
-        state: present
-        name: USERPROFILE
-        level: user
+      win_shell: echo $env:USERPROFILE
       register: userprofile_env
 
     - name: Create a directory on Windows
       win_file:
-        path: "{{ userprofile_env.value }}\\.ssh"
+        path: "{{ userprofile_env.stdout }}\\.ssh"
         state: directory
 
     - name: Create the authorized key file
       win_file:
-        path: "{{ userprofile_env.value }}\\.ssh\\authorized_keys"
+        path: "{{ userprofile_env.stdout }}\\.ssh\\authorized_keys"
         state: touch
 
     - name: Copy a file to Windows
       win_copy:
         src: ~/.ssh/ansible.pub
-        dest: "{{ userprofile_env.value }}\\.ssh\\authorized_keys"
+        dest: "{{ userprofile_env.stdout }}\\.ssh\\authorized_keys"
