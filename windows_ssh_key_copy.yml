@@ -32,7 +32,7 @@
 
     - name: Copy a file to Windows
       win_copy:
-        src: home\\janina\\.ssh\\ansible.pub
+        src: home\janina\.ssh\ansible.pub
         dest: "{{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
 
     - name: Debug file copy
