@@ -5,7 +5,7 @@
   vars:
     username: janina
     ssh_key_path: "/home/janina/.ssh/ansible.pub"
-    
+
     linux_slaves:
       - 192.168.178.71
       - 192.168.178.72
@@ -32,31 +32,31 @@
         user: "{{ username }}"
         state: present
         key: "{{ lookup('file', ssh_key_path) }}"
-      loop: "{{ linux_servers }}"
+      loop: "{{ linux_slaves }}"
       delegate_to: "{{ item }}"
 
     - name: Add Linux servers to known_hosts
       known_hosts:
         name: "{{ item }}"
         state: present
-      loop: "{{ linux_servers }}"
+      loop: "{{ linux_slaves }}"
 
     - name: Ensure .ssh directory exists on Windows servers
       win_file:
         path: "C:\\Users\\{{ username }}\\.ssh"
         state: directory
-      loop: "{{ windows_servers }}"
+      loop: "{{ windows_slaves }}"
       delegate_to: "{{ item }}"
 
     - name: Copy SSH key to Windows servers
       win_copy:
         src: "{{ ssh_key_path }}"
         dest: "C:\\Users\\{{ username }}\\.ssh\\authorized_keys"
-      loop: "{{ windows_servers }}"
+      loop: "{{ windows_slaves }}"
       delegate_to: "{{ item }}"
 
     - name: Add Windows servers to known_hosts
       known_hosts:
         name: "{{ item }}"
         state: present
-      loop: "{{ windows_servers }}"
+      loop: "{{ windows_slaves }}"
