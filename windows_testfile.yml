@@ -9,7 +9,7 @@
 
     - name: Define user profile variable
       set_fact:
-      user_profile: "{{ lookup('env', 'USERPROFILE') }}"
+        user_profile: "{{ lookup('env', 'USERPROFILE') }}"
 
     - name: Create a directory on Windows
       win_file:
