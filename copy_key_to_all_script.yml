@@ -10,12 +10,12 @@
     - name: Read SSH key using sudo
       command: cat /home/janina/.ssh/ansible.pub
       become: yes
-      become_user: janina
+      become_user: root
       register: ssh_key_content
 
     - debug:
         msg: "{{ ssh_key_content.stdout }}"
-        
+
 
     - name: Set SSH key fact
       set_fact:
