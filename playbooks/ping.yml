@@ -1,9 +1,0 @@
----
-- name: Ping LinuxSlaves
-  hosts: LinuxSlaves
-  gather_facts: false
-  tasks:
-    - name: Ping
-      ping:
-  vars:
-    ansible_ssh_extra_args: "-vvv"

@@ -1,9 +1,8 @@
 ---
 - name: Copy SSH public key to LinuxSlaves
-  hosts: LinuxSlaves
+  hosts: linux_slaves
   become: true
-  vars_files:
-    - vars.yml
+
   tasks:
     - name: Ensure .ssh directory exists for ansible_user
       file:
@@ -27,6 +26,6 @@
     - name: Copy SSH public key to authorized_keys for janina
       copy:
         src: /home/janina/.ssh/ansible.pub
-        dest: /home/janina/.ssh/authorized_keys
+        dest: /home/simone/.ssh/authorized_keys
         mode: "0644"
         append: yes
