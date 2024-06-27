@@ -2,8 +2,9 @@
 - name: Execute Inline Bash Script
   hosts: 127.0.0.1
   connection: local
-  become_user: janina
-  become_pass: passwort
+  ansible_become_user: janina
+  ansible_become_method: sudo
+  ansible_become_pass: passwort
   tasks:
      - name: Run bash script
        shell: |
