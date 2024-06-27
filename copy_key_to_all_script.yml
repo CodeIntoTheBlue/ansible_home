@@ -2,6 +2,7 @@
 - name: Execute Inline Bash Script
   hosts: 127.0.0.1
   connection: local
+  become_user: semaphore
   tasks:
      - name: Run bash script
        shell: |
