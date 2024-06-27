@@ -24,6 +24,7 @@
         ssh_key: "{{ ssh_key_content.stdout }}"
 
     - name: Copy SSH key to Linux slaves
+      ignore_unreachable: yes
       authorized_key:
         user: "{{ username }}"
         state: present
@@ -34,6 +35,7 @@
 
 
     - name: Copy SSH key to windows slaves
+      ignore_unreachable: yes
       authorized_key:
         user: "{{ username }}"
         state: present
