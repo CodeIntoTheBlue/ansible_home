@@ -14,8 +14,31 @@
       - 192.168.178.79
       - 192.168.178.80
       - 192.168.178.81
+    all_slaves: "{{ linux_slaves + windows_slaves }}"
+
+    known_hosts_file: "/home/janina/.ssh/known_hosts"
 
   tasks:
+    - name: Ensure known_hosts file exists
+      file:
+        path: "{{ known_hosts_file }}"
+        state: touch
+        mode: '0600'
+
+    - name: Add IP addresses to known_hosts
+      lineinfile:
+        path: "{{ known_hosts_file }}"
+        line: "{{ item }}"
+        state: present
+      loop: "{{ all_slaves }}"
+
+    - name: Debug added IP addresses
+      debug:
+        msg: "Added {{ item }} to known_hosts"
+      loop: "{{ all_slaves }}"
+
+
+
     - name: Read SSH key using sudo
       command: sudo -u janina cat {{ ssh_key_path }}
       register: ssh_key_content
@@ -32,9 +55,6 @@
         key: "{{ ssh_key }}"
       loop: "{{ linux_slaves }}"
       delegate_to: "{{ item }}"
-
-
-
 
 
 
@@ -89,39 +109,3 @@
         msg: "Public key content copied to {{ userprofile_env.stdout.strip() }}\\.ssh\\authorized_keys"
       when: ansible_pub_file.stat.exists
 
-
-
-
-
-- hosts: localhost
-  connection: local
-  gather_facts: no
-  vars:
-    all_slaves:
-      - 192.168.178.71
-      - 192.168.178.72
-      - 192.168.178.74
-      - 192.168.178.75
-      - 192.168.178.79
-      - 192.168.178.80
-      - 192.168.178.81
-    known_hosts_file: "/home/janina/.ssh/known_hosts"
-
-  tasks:
-    - name: Ensure known_hosts file exists
-      file:
-        path: "{{ known_hosts_file }}"
-        state: touch
-        mode: '0600'
-
-    - name: Add IP addresses to known_hosts
-      lineinfile:
-        path: "{{ known_hosts_file }}"
-        line: "{{ item }}"
-        state: present
-      loop: "{{ all_slaves }}"
-
-    - name: Debug added IP addresses
-      debug:
-        msg: "Added {{ item }} to known_hosts"
-      loop: "{{ all_slaves }}"
