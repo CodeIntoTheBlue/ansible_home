@@ -6,7 +6,6 @@
 192.168.178.72
 
 [linux_slaves:vars]
-
 ansible_become=yes
 ansible_become_user=root
 ansible_become_method=sudo
