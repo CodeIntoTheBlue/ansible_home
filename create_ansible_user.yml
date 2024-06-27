@@ -1,9 +1,9 @@
 ---
-- hosts: all
+- hosts: linux_slaves
   become: true
   tasks:
 
-    - name: create simone user
+    - name: create simone user on Linux
       tags: always
       user:
         name: simone
@@ -23,3 +23,19 @@
         owner: root
         group: root
         mode: 0440
+
+
+
+- hosts: windows_slaves
+  gather_facts: no
+  tasks:
+    - name: Create a new Adminuser simone on Windows
+      win_user:
+        name: simone
+        password: 'passwort'
+        state: present
+        groups:
+          - Administrators
+        password_never_expires: yes
+        account_disabled: no
+        user_cannot_change_password: no
