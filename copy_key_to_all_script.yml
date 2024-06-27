@@ -17,6 +17,60 @@
       - 192.168.178.81
 
   tasks:
+
+
+
+
+
+
+
+    - name: Check file permissions
+      stat:
+        path: /home/janina/.ssh/ansible.pub
+      register: file_info
+
+    - debug:
+        var: file_info
+
+
+    - name: Get absolute path
+      command: readlink -f /home/janina/.ssh/ansible.pub
+      register: absolute_path
+
+    - debug:
+        var: absolute_path.stdout
+
+
+    - name: Check SELinux context
+      command: ls -Z /home/janina/.ssh/ansible.pub
+      register: selinux_context
+
+    - debug:
+        var: selinux_context.stdout
+
+
+
+    - name: Check current user
+      command: whoami
+      register: current_user
+
+    - debug:
+        var: current_user.stdout    
+
+
+
+    - name: Read SSH key content
+      set_fact:
+        ssh_key_content: "{{ lookup('file', '/home/janina/.ssh/ansible.pub') }}"
+
+    - debug:
+        var: ssh_key_content    
+        
+
+
+
+
+
     - name: Ensure SSH key file exists
       stat:
         path: "{{ ssh_key_path }}"
