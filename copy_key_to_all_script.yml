@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars:
-    username: simone
+    username: janina
     ssh_key_path: "{{ lookup('env', 'HOME') }}/.ssh/ansible.pub"
     linux_slaves:
       - 192.168.178.71
