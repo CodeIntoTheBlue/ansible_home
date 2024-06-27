@@ -588,7 +588,7 @@ rm semaphore_2.9..... file
 
 
 # user:group
-sudo chown semaphore:semaphore config.json
+sudo chown semaphore:semaphore /etc/semaphore/config.json
 
 
 # directory erstellen

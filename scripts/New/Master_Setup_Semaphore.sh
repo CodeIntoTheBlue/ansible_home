@@ -44,10 +44,10 @@ semaphore_db
 
 
 
-
-
-
-
+janina
+janinahc@outlook.com
+Janina HC
+passwort
 EOF
 
 
@@ -57,7 +57,7 @@ EOF
 sudo chown semaphore:semaphore config.json
 
 # directory erstellen
-sudo mkdir /etc/semaphore
+sudo mkdir /etc/semaphore/.ssh
 
 # change ownership
 sudo chown semaphore:semaphore /etc/semaphore
@@ -67,7 +67,7 @@ sudo mv config.json /etc/semaphore/
 
 
 # Create initial config.json
-cat << EOF > /etc/semaphore/config.json
+sudo cat << EOF > /etc/semaphore/config.json
 {
     "master_server": "$(hostname -I | awk '{print $1}')",
     "linux_servers": [],
