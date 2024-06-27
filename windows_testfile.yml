@@ -3,12 +3,6 @@
   hosts: windows_slaves
   gather_facts: no
 
-  vars:
-    ansible_become_method: runas
-    ansible_become_user: janina
-    ansible_connection: winrm
-    ansible_winrm_server_cert_validation: ignore
-
   tasks:
     - name: Ping Windows clients
       win_ping:
