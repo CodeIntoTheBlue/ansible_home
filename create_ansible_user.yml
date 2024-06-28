@@ -1,5 +1,6 @@
 ---
 - hosts: linux_slaves
+  ignore_unreachable: yes
   become: true
   tasks:
 
@@ -18,7 +19,7 @@
     - name: add sudoers file for simone
       tags: always
       copy:
-        src: sudoer_simone
+        src: files/sudoer_simone
         dest: /etc/sudoers.d/simone
         owner: root
         group: root
@@ -28,6 +29,7 @@
 
 - hosts: windows_slaves
   gather_facts: no
+  ignore_unreachable: yes
   tasks:
     - name: Create a new Adminuser simone on Windows
       win_user:
