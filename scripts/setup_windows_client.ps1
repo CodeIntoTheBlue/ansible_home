@@ -1,5 +1,7 @@
+# setup_windows_client.ps1
+# 
 
-# Doewnloading the configurationscript
+# Downloading the configurationscript
 $url = “https://raw.githubusercontent.com/ansible/ansible-documentation/devel/examples/scripts/ConfigureRemotingForAnsible.ps1” 7
 $file = “$env:temp\ConfigureRemotingForAnsible.ps1”
 (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
