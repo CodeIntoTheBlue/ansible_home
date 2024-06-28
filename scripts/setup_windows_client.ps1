@@ -1,15 +1,11 @@
+
+# Doewnloading the configurationscript
 $url = “https://raw.githubusercontent.com/ansible/ansible-documentation/devel/examples/scripts/ConfigureRemotingForAnsible.ps1” 7
-
 $file = “$env:temp\ConfigureRemotingForAnsible.ps1”
-
 (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
-
 powershell.exe -ExecutionPolicy ByPass -File $file
 
-
-###############################################################
-
-
+###################################################################################
 
 # Install OpenSSH
 Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
@@ -17,10 +13,8 @@ Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
 # make sure updates are activated before you can install
 Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
 
-
 # service angucken
 Get-WindowsCapability -Online | Where-Object Name -like '*OpenSSH.Server*' | Select-Object Name, State
-
 
 # Start and configure SSH service
 Start-Service sshd
@@ -28,7 +22,6 @@ Set-Service -Name sshd -StartupType 'Automatic'
 
 # Configure firewall
 New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
-
 
 # Enable SSH agent
 Get-Service ssh-agent | Set-Service -StartupType Automatic
@@ -55,8 +48,7 @@ Write-Host "The Ansible SSH key will be deployed from the master server."
 $clientIP = (Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias Ethernet).IPAddress
 if ($windowsClients -contains $clientIP) {
     Write-Host "This client ($clientIP) is correctly listed in the configuration."
-} else {
+}
+else {
     Write-Host "Warning: This client ($clientIP) is not listed in the configuration file."
 }
-
-
