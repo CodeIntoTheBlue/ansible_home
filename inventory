@@ -31,5 +31,5 @@ ansible_shell_type=powershell
 
 [all:vars]
 ssh_public_key="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4uZMBl5Kw9+tH5UZmv6ByQgycS0dfDnb1psDDttJQp ansible"
-ansible_user=simone
+#ansible_user=simone
 ansible_password=passwort
