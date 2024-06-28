@@ -38,6 +38,7 @@
         state: present
         groups:
           - Administrators
+          - Administratoren
         password_never_expires: yes
         account_disabled: no
         user_cannot_change_password: no
