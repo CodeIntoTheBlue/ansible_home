@@ -477,6 +477,8 @@ Add-LocalGroupMember -Group "Administrators" -Member "ansible"
 New-Item -Path "C:\Users\ansible\.ssh" -ItemType Directory -Force
 icacls "C:\Users\ansible\.ssh" /inheritance:r
 icacls "C:\Users\ansible\.ssh" /grant "ansible:(OI)(CI)F"
+
+New-Item -Path "C:\Users\ansible\.ssh\authorized_keys" -ItemType File -Force
 icacls "C:\Users\ansible\.ssh\authorized_keys" /inheritance:r
 icacls "C:\Users\ansible\.ssh\authorized_keys" /grant "ansible:(OI)(CI)F"
 
