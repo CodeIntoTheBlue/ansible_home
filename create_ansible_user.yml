@@ -4,23 +4,23 @@
   become: true
   tasks:
 
-    - name: create ansible user on Linux
+    - name: create simone user on Linux
       tags: always
       user:
-        name: ansible
+        name: simone
         groups: root
 
-    - name: add ssh-key for ansible
+    - name: add ssh-key for simone
       tags: always
       authorized_key:
-         user: ansible
+         user: simone
          key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4uZMBl5Kw9+tH5UZmv6ByQgycS0dfDnb1psDDttJQp ansible"
 
-    - name: add sudoers file for ansible
+    - name: add sudoers file for simone
       tags: always
       copy:
-        src: files/sudoer_ansible
-        dest: /etc/sudoers.d/ansible
+        src: files/sudoer_simone
+        dest: /etc/sudoers.d/simone
         owner: root
         group: root
         mode: 0440
@@ -31,9 +31,9 @@
   gather_facts: no
   ignore_unreachable: yes
   tasks:
-    - name: Create a new Adminuser ansible on Windows
+    - name: Create a new Adminuser simone on Windows
       win_user:
-        name: ansible
+        name: simone
         password: 'passworti'
         state: present
         groups:
