@@ -25,8 +25,7 @@ ansible_port=5986
 ansible_connection=winrm
 ansible_winrm_server_cert_validation=ignore
 ansible_become_method=runas
-ansible_become_user=simone
-ansible_password=passwort
+#ansible_become_user=simone
 ansible_shell_type=powershell
 
 
