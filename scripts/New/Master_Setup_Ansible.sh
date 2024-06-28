@@ -19,18 +19,18 @@ sudo pip3 install pywinrm
 sudo sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
-# Create Ansible user Simone
-sudo adduser --system --group simone
-sudo usermod -aG sudo simone
+# Create Ansible user ansible
+sudo adduser --system --group ansible
+sudo usermod -aG sudo ansible
 
-# Set up sudo rights for Ansible user simone
-echo "simone ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/simone
-sudo chmod 440 /etc/sudoers.d/simone
+# Set up sudo rights for Ansible user ansible
+echo "ansible ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ansible
+sudo chmod 440 /etc/sudoers.d/ansible
 
-# Create .ssh directory for ansible user simone
-sudo mkdir -p /home/simone/.ssh
-sudo chown simone:simone /home/simone/.ssh
-sudo chmod 700 /home/simone/.ssh
+# Create .ssh directory for ansible user ansible
+sudo mkdir -p /home/ansible/.ssh
+sudo chown ansible:ansible /home/ansible/.ssh
+sudo chmod 700 /home/ansible/.ssh
 
 # Generate Ansible SSH key
 ssh-keygen -t ed25519 -C "ansible" -f ~/.ssh/ansible

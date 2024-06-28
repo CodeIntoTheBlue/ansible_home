@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the username and the path to the SSH key on the local machine
-username=simone
+username=ansible
 ssh_key_path=~/.ssh/ansible.pub
 
 # Set the list of remote Linux servers

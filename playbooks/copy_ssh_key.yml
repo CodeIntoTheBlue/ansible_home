@@ -26,6 +26,6 @@
     - name: Copy SSH public key to authorized_keys for janina
       copy:
         src: /home/janina/.ssh/ansible.pub
-        dest: /home/simone/.ssh/authorized_keys
+        dest: /home/ansible/.ssh/authorized_keys
         mode: "0644"
         append: yes

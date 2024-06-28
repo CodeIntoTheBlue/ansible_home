@@ -4,7 +4,7 @@ localhost
 
 [linux_slaves]
 192.168.178.71
-192.168.178.72
+#192.168.178.72
 
 [linux_slaves:vars]
 ansible_become=yes
@@ -14,11 +14,10 @@ ansible_become_pass=passwort
 ansible_connection=ssh
 
 [windows_slaves]
-192.168.178.74
-192.168.178.80
-192.168.178.75
 192.168.178.79
-192.168.178.81
+192.168.178.80
+#192.168.178.81
+192.168.178.82
 
 [windows_slaves:vars]
 ansible_port=5986

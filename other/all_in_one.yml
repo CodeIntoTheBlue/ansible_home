@@ -46,10 +46,10 @@
   vars_files:
     - vars.yml
   tasks:
-    - name: add ssh-key for simone
+    - name: add ssh-key for ansible
       tags: always
       authorized_key:
-        user: simone
+        user: ansible
         key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN3inf5BR5TmRphZZMvwuT8J4VpRYSQZUExa0grred51 ansible"
 
     - name: start httpd (CentOS)
@@ -121,3 +121,10 @@
         name: mariadb-server
         state: latest
       when: ansible_distribution == "Ubuntu"
+
+
+    - name: Print OS info
+      ansible.builtin.package:
+        name: apache2
+
+

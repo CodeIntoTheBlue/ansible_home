@@ -24,8 +24,8 @@
 
     - name: Create Ansible user
       win_user:
-        name: simone
-        password: passwort
+        name: ansible
+        password: passworti
         groups:
           - Administrators
         state: present
