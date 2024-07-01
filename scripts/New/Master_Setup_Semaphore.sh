@@ -8,6 +8,9 @@ sudo apt update && sudo apt upgrade -y
 # create a system user for semaphore
 sudo adduser --system --group --home /home/semaphore semaphore
 
+# starte mariadb
+sudo service mariadb start
+
 # Set up MariaDB
 sudo mysql_secure_installation <<EOF
 
@@ -34,7 +37,6 @@ sudo apt install ./semaphore_2.10.7_linux_amd64.deb
 
 # Set up Semaphore
 sudo semaphore setup <<EOF
-
 1
 
 semaphore_user
@@ -57,10 +59,11 @@ EOF
 sudo chown semaphore:semaphore config.json
 
 # directory erstellen
+sudo mkdir /etc/semaphore
 sudo mkdir /etc/semaphore/.ssh
 
 # copy ansible pub key to the directory
-sudo cp ~/.ssh/ansible.pub /home/semaphore/.ssh/ansible.pub
+sudo cp ~/.ssh/ansible.pub /etc/semaphore/.ssh/ansible.pub
 
 # change ownership
 sudo chown semaphore:semaphore /etc/semaphore
