@@ -27,6 +27,14 @@ sudo usermod -aG sudo ansible
 echo "ansible ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/ansible
 sudo chmod 440 /etc/sudoers.d/ansible
 
+
+sudo usermod -s /bin/bash ansible
+
+sudo usermod -s /bin/bash ansible
+sudo mkdir -p /home/ansible
+sudo chown ansible:ansible /home/ansible 
+
+
 # Create .ssh directory for ansible user ansible
 sudo mkdir -p /home/ansible/.ssh
 sudo chown ansible:ansible /home/ansible/.ssh

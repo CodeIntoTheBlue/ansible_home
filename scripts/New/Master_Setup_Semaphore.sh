@@ -44,10 +44,10 @@ semaphore_db
 
 
 
-janina
-janinahc@outlook.com
-Janina HC
-passwort
+ansible
+ansible@semaphore.com
+ansible user
+passworti
 EOF
 
 
